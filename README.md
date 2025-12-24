@@ -83,36 +83,28 @@ npm create vite@latest frontend -- --template react
                                 render the HTML content safely)
           npm install axios html-react-parser
 
-uses a component-based architecture (likely referencing a UI library like Shadcn/UI or Tailwind CSS).
-Install Tailwind CSS
-  npm install -D tailwindcss postcss autoprefixer
-  npx tailwindcss init -p
-This code is much more professional and uses a component-based architecture (likely referencing a UI library like Shadcn/UI or Tailwind CSS).
+      I used a component-based architecture (likely referencing a UI library like Shadcn/UI or Tailwind CSS).
+      for this 
 
-To make your App.jsx work with this design, we need to recreate the missing components (Header, ArticleCard, etc.) and ensure you have Tailwind CSS set up, as the classes (grid-cols-1, text-muted-foreground) rely on it.
+  The Professional "Modern" Implementation
 
-Phase 3: The Professional "Modern" Implementation
-Step 1: Install Tailwind CSS (If not already installed)
-If you haven't set up Tailwind in your Vite project yet, run these commands in your frontend folder:
-
-Bash
-
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-Update tailwind.config.js 
-
-
-This code is much more professional and uses a component-based architecture (likely referencing a UI library like Shadcn/UI or Tailwind CSS).
-
-To make your App.jsx work with this design, we need to recreate the missing components (Header, ArticleCard, etc.) and ensure you have Tailwind CSS set up, as the classes (grid-cols-1, text-muted-foreground) rely on it.
-
-Phase 3: The Professional "Modern" Implementation
-Step 1: Install Tailwind CSS (If not already installed)
-If you haven't set up Tailwind in your Vite project yet, run these commands in your frontend folder:
-
-Bash
+Step 1: Install Tailwind CSS
 
 npm install -D tailwindcss@3.4 postcss autoprefixer
+
+Reset  my Configuration Files
+
+reset the two configuration files.
+
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+   Create/Update postcss.config.js
+
 npx tailwindcss init -p
 Update tailwind.config.js with following code:
 
@@ -120,8 +112,6 @@ Update tailwind.config.js with following code:
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-
-
 
 Add this to the top of your src/index.css:
 @tailwind base;
@@ -131,36 +121,21 @@ Add this to the top of your src/index.css:
 Step 2: Create the Component Files
 Create a folder src/components and create these 4 files inside it.
 
-1. src/components/Header.jsx
-2. src/components/ArticleCard.jsx 
+a. src/components/Header.jsx
+
+b. src/components/ArticleCard.jsx 
    (Uses html-react-parser to render your AI HTML safely)
-3. src/components/ArticleSkeleton.jsx (Loading state)
-4. src/components/EmptyState.jsx
-5. Update src/App.jsx
+
+c. src/components/ArticleSkeleton.jsx (Loading state)
+
+d. src/components/EmptyState.jsx
+
+e. Update src/App.jsx
 
 Add Professional Styling (src/App.css)
+
 Step 4: Run the Frontend
 
-npm run dev
-
-- frontend  
-        
-
-  React frontend for displaying articles
-
-- phase2-script  
-  Node.js automation script for updating articles
-
----
-
-
-
----
-
-
-
-cd frontend
-npm install
 npm run dev
 
 Frontend runs at:
@@ -170,18 +145,75 @@ http://localhost:5173
 
 ## Automation Script Setup (Node.js)
 
+Phase 2: Node.js Automation Script
+
+"The initial specifications for Phase 2 instructed the use of the Google Custom Search JSON API to locate competitor articles. During the implementation phase, it was confirmed that accessing this Google API requires the activation of a Google Cloud Platform billing account with a valid credit card on file for identity verification, even to utilize the free tier quota.
+
+Due to constraints preventing the provision of payment methods to cloud service providers, a necessary technical deviation was implemented.
+
+Instead of the Google API, the project utilizes programmatic scraping of DuckDuckGo HTML search results as a functional alternative. This approach successfully demonstrates the core technical competency required by the assignment: programmatically searching the web with a dynamic query, extracting relevant external URLs, and passing those resources to the scraping engine. This workaround ensures the complete automated workflow of the AI content engine remains functional and achieves the project goals."
+
+
+
+
+
+This script acts as the "bridge" between your local data, the open web, and an AI model.
+
+Phase 2 Setup Guide (Axios/JSDOM/Gemini Variant)
+1. Prerequisites & Tech Stack
+You need the following installed and running before starting:
+
+Node.js: (Version 16+ recommended).
+
+Laravel Backend: Must be running locally (e.g., at http://127.0.0.1:8000) and have accessible endpoints to GET all articles and PUT updates.
+
+Google Gemini API Key: A valid key from Google AI Studio.
+
+
+axios: Used for all HTTP requests: fetching from Laravel, searching DuckDuckGo, scraping pages, and sending data to the Google Gemini REST API.
+
+jsdom: Used to parse the raw HTML returned by DuckDuckGo and the blog pages you scrape to extract text.
+
+dotenv: To manage your API keys securely.
+
+2. Project Initialization & Installation
+ run these commands to set up the project folder and install only the required dependencies for this specific version of the script.
+mkdir phase2-script
 cd phase2-script
-npm install
+npm init -y
+npm install axios jsdom dotenv
 
-Create a .env file inside phase2-script:
+3. Configuration (.env)
+Create a new file named .env in your project folder. You need to define the URL for your local Laravel API and your Google Gemini API key.
 
-GEMINI_API_KEY=your_api_key_here
 
-Run the script:
+
+# Your local Laravel API endpoint for articles
+LARAVEL_API_URL=http://127.0.0.1:8000/api/articles
+
+# Your Google Gemini API Key
+GEMINI_API_KEY=your_actual_google_api_key_here
+4. The Script Logic (index.js)
+Create a file named index.js and write  the code 
+Key Implementation Details of this Script:
+
+
+Scraping Method: It uses jsdom to extract document.body.textContent, capturing all text on the page.
+
+AI Method: It makes a direct HTTP POST request to the generativelanguage.googleapis.com REST endpoint, manually constructing the JSON payload.
+
+5. Running the Script
+
+
+ run your Node.js script:
+
 
 node index.js
 
----
+Note About phase-2 :- The script takes local data as input, processes it using external services (DuckDuckGo and Google Gemini in the cloud), and then saves the result back to your local storage.
+
+
+
 
 ## Application Flow
 
