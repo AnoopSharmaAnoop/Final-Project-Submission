@@ -66,6 +66,8 @@ http://127.0.0.1:8000
 
 
 ## Frontend Setup (React)
+      Note :-   The context states that to make your project live and accessible to others, you need to host both your frontend and backend on the internet. It suggests using services like DigitalOcean, AWS, or Heroku for the backend, which often involve costs. Therefore, it is accurate to state based on the text that hosting is required for a live project and may incur charges.
+
           
           Open your terminal (navigate out of the phase2-script folder first, back to your main workspace) and run:
 
